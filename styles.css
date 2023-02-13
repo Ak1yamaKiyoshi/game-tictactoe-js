@@ -1,0 +1,96 @@
+.body {
+    display: flex;
+    width: 100%;
+}
+
+#field {
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(3, 1fr);
+
+}
+
+.container {
+    width: fit-content; 
+    background-color: lavender;
+    border: 4px solid #604f6e; 
+    border-radius: 10px;
+    margin: auto;
+    
+}
+
+.row {height:100;}
+
+.boxes {
+    border: 4px dashed #604f6e; 
+}
+
+#box0 {border-width: 0 4px 4px 0;}
+#box1 {border-width: 0 0 4px 0;}
+#box2 {border-width: 0 0 4px 4px;}
+#box3 {border-width: 0 4px 0 0;}
+#box4 {border-width: 0 0 0 0;}
+#box5 {border-width: 0 0 0 4px;}
+#box6 {border-width:4px 4px 0 0;}
+#box7 {border-width: 4px 0 0 0;}
+#box8 {border-width: 4px 0 0 4px;}
+
+.txt {
+    font-family: 'Overpass', sans-serif;
+    font-weight: 900;
+    font-size: large;
+    color: #604f6e;
+    margin: 5px;
+}
+
+.win {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+}
+.stat {
+    display: flex;
+    justify-content: center;
+}
+
+.statistics {  
+    border: 4px solid #604f6e;
+    border-width: 4px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+.statisticsCell {
+    display: flex;
+    flex-direction: row;
+}
+
+.buttons {  
+    border: 4px solid #604f6e;
+    border-width: 4px 0 0 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    
+}
+
+.aidropdown {
+    border: 4px solid #604f6e;
+    border-width: 4px 0 0 0;
+    height: 50px;
+    display: flex;
+    justify-content: row;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.aibutton {
+    background-color: #604f6e;
+    color: lavender;
+    border: 0;
+    height: 35px;
+    width: 60px;
+}
