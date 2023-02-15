@@ -77,8 +77,6 @@ class Rules {
 }
 
 
-
-
 class AI extends Player {
     constructor() {
         super();
@@ -92,7 +90,6 @@ class AI extends Player {
         if (i == 1)document.getElementById("ai").innerText = "Rand";
         if (i == 2)document.getElementById("ai").innerText = "None";
     }
-
 
     aiRandMove(player1, player2) {
         let moves = this.rules.avaivableMoves(player1, player2);
@@ -161,9 +158,9 @@ class AI extends Player {
     }
 }
 
-class Board extends Rules {
+class Board  {
     constructor() {
-        super();
+        this.rules = new Rules();
         this.player1 = new Player;
         this.player2 = new Player;
         this.player2.nowPlaying = "O";
@@ -210,8 +207,8 @@ class Board extends Rules {
 
     preview(element) {
         let i = parseInt(element.id.charAt(3));
-        if (!this.isPlacedBoth(this.player1, this.player2, i)) {
-            if (this.nowMove(this.counter) == 1) this.drawX(element);
+        if (!this.rules.isPlacedBoth(this.player1, this.player2, i)) {
+            if (this.rules.nowMove(this.rules.counter) == 1) this.drawX(element);
             else this.drawO(element, this.neutralColor);
             this.clearCell(element);
         }
@@ -220,7 +217,7 @@ class Board extends Rules {
     clearCell(element) {
         element.addEventListener("mouseleave", (event => {
             const context = event.target.getContext('2d');
-            if(!this.isPlacedBoth(this.player1, this.player2,  parseInt(event.target.id.charAt(3)))) 
+            if(!this.rules.isPlacedBoth(this.player1, this.player2,  parseInt(event.target.id.charAt(3)))) 
                 context.clearRect(0, 0, 100, 100);
         }));
     }
@@ -239,13 +236,13 @@ class Game extends Board{
     }
 
     winTie() {  
-        let w = this.win(this.player1, this.player2)
-        let t = this.tie(this.player1, this.player2, this.counter)
+        let w = this.rules.win(this.player1, this.player2)
+        let t = this.rules.tie(this.player1, this.player2, this.rules.counter)
         if ((w || t) || t) {
             this.clear()
-            this.restart(this.player1, this.player2);
-            this.updateNowPlaying(this.player1, this.player2);
-            this.counter = 0;   
+            this.rules.restart(this.player1, this.player2);
+            this.rules.updateNowPlaying(this.player1, this.player2);
+            this.rules.counter = 0;   
             document.getElementById("who").innerText = (w) ? w : t;
             return true;
         }
@@ -255,8 +252,8 @@ class Game extends Board{
     move(box) {
         if (this.winTie()) return; 
         if (this.aiFlag == 1 ) {
-            let move = (this.ai.aiType == 1) ? this.ai.aiRandMove(this.player1, this.player2) : this.ai.aiBestMove(this.player1, this.player2, this.counter);
-            if (this.nowMove(this.counter) == 1) {
+            let move = (this.ai.aiType == 1) ? this.ai.aiRandMove(this.player1, this.player2) : this.ai.aiBestMove(this.player1, this.player2, this.rules.counter);
+            if (this.rules.nowMove(this.rules.counter) == 1) {
                 this.player1.move(move)
                 this.drawX(this.getBox(move), this.red);
             }   
@@ -265,12 +262,12 @@ class Game extends Board{
                 this.drawO(this.getBox(move), this.red);
             }
             this.aiFlag = 0;
-            this.counter++;
+            this.rules.counter++;
             
         } else {
             let i = parseInt(box.id.charAt(3));
-            if (!this.isPlacedBoth(this.player1, this.player2,  i)) {
-                if (this.nowMove(this.counter) == 1) {
+            if (!this.rules.isPlacedBoth(this.player1, this.player2,  i)) {
+                if (this.rules.nowMove(this.rules.counter) == 1) {
                     this.player1.move(i)
                     this.drawX(box, this.red);
                 }   
@@ -278,7 +275,7 @@ class Game extends Board{
                     this.player2.move(i);
                     this.drawO(box, this.red);
                 }
-                this.counter++;
+                this.rules.counter++;
                 if (this.ai.aiType != 2) {
                     this.aiFlag = 1;
                     this.move(box);
